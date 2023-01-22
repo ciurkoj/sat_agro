@@ -60,19 +60,11 @@ class MockFieldRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.FieldDTO> getField(int? id) => (super.noSuchMethod(
-        Invocation.method(
-          #getField,
-          [id],
-        ),
-        returnValue: _i4.Future<_i2.FieldDTO>.value(_FakeFieldDTO_0(
-          this,
-          Invocation.method(
-            #getField,
-            [id],
-          ),
-        )),
-      ) as _i4.Future<_i2.FieldDTO>);
+  _i4.Future<_i2.FieldDTO>? getField(int? id) =>
+      (super.noSuchMethod(Invocation.method(
+        #getField,
+        [id],
+      )) as _i4.Future<_i2.FieldDTO>?);
 }
 
 /// A class which mocks [FieldLocalDataSource].
@@ -99,11 +91,10 @@ class MockFieldLocalDataSource extends _i1.Mock
         )),
       ) as _i4.Future<_i2.FieldDTO>);
   @override
-  _i4.Future<void>? cacheField(_i2.FieldDTO? FieldModel) =>
-      (super.noSuchMethod(
+  _i4.Future<void>? cacheField(_i2.FieldDTO? fieldDTO) => (super.noSuchMethod(
         Invocation.method(
           #cacheField,
-          [FieldModel],
+          [fieldDTO],
         ),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>?);
@@ -115,27 +106,13 @@ class MockFieldLocalDataSource extends _i1.Mock
 class MockRemoteDataSource extends _i1.Mock
     implements _i5.FieldRemoteDataSource {
   @override
-  _i4.Future<_i2.FieldDTO> getField(int? id) => (super.noSuchMethod(
+  _i4.Future<_i2.FieldDTO>? getField(int? id) => (super.noSuchMethod(
         Invocation.method(
           #getField,
           [id],
         ),
-        returnValue: _i4.Future<_i2.FieldDTO>.value(_FakeFieldDTO_0(
-          this,
-          Invocation.method(
-            #getField,
-            [id],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.FieldDTO>.value(_FakeFieldDTO_0(
-          this,
-          Invocation.method(
-            #getField,
-            [id],
-          ),
-        )),
-      ) as _i4.Future<_i2.FieldDTO>);
+        returnValueForMissingStub: null,
+      ) as _i4.Future<_i2.FieldDTO>?);
 }
 
 /// A class which mocks [FieldLocalDataSource].
@@ -165,11 +142,10 @@ class MockLocalDataSource extends _i1.Mock implements _i6.FieldLocalDataSource {
         )),
       ) as _i4.Future<_i2.FieldDTO>);
   @override
-  _i4.Future<void>? cacheField(_i2.FieldDTO? FieldModel) =>
-      (super.noSuchMethod(
+  _i4.Future<void>? cacheField(_i2.FieldDTO? fieldDTO) => (super.noSuchMethod(
         Invocation.method(
           #cacheField,
-          [FieldModel],
+          [fieldDTO],
         ),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>?);

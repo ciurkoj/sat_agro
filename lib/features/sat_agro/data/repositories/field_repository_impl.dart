@@ -22,7 +22,7 @@ class FieldRepositoryImpl implements FieldRepository {
   @override
   Future<Either<Failure, Field>>? getField(int id) async {
     return await _getField(() {
-      return remoteDataSource.getField(id);
+      return remoteDataSource.getField(id)!;
     });
 
   }

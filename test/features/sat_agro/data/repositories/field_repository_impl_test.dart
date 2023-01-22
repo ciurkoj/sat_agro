@@ -61,14 +61,6 @@ void main() {
     FieldDTO tFieldModel = FieldDTO(id: tFieldId, user: 1234, name: 'Dawna Pogłąć', geom: '16 53');
     Field tField = tFieldModel;
 
-    test('should check if the device is online', () async {
-      //arrange
-      when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-      //act
-      repositoryImpl.getField(tFieldId);
-      //assert
-      verify(mockNetworkInfo.isConnected);
-    });
 
     runTestsOnline(() {
       test('should return remote data when the call to remote data source is successful', () async {

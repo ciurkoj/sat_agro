@@ -1,6 +1,7 @@
 import 'package:satagro/features/sat_agro/data/data_transfer_objects/crop_history_DTO.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:satagro/features/sat_agro/domain/entities/field.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'field_DTO.g.dart';
 

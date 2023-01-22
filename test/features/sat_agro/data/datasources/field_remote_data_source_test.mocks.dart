@@ -3,13 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:satagro/features/sat_agro/data/data_sources/field_remote_data_source.dart'
-    as _i3;
-import 'package:satagro/features/sat_agro/data/data_transfer_objects/field_DTO.dart'
     as _i2;
+import 'package:satagro/features/sat_agro/data/data_transfer_objects/field_DTO.dart'
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -22,37 +22,19 @@ import 'package:satagro/features/sat_agro/data/data_transfer_objects/field_DTO.d
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeFieldDTO_0 extends _i1.SmartFake implements _i2.FieldDTO {
-  _FakeFieldDTO_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [FieldRemoteDataSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockFieldRemoteDataSourceImpl extends _i1.Mock
-    implements _i3.FieldRemoteDataSourceImpl {
+    implements _i2.FieldRemoteDataSourceImpl {
   MockFieldRemoteDataSourceImpl() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.FieldDTO> getField(int? id) => (super.noSuchMethod(
-        Invocation.method(
-          #getField,
-          [id],
-        ),
-        returnValue: _i4.Future<_i2.FieldDTO>.value(_FakeFieldDTO_0(
-          this,
-          Invocation.method(
-            #getField,
-            [id],
-          ),
-        )),
-      ) as _i4.Future<_i2.FieldDTO>);
+  _i3.Future<_i4.FieldDTO>? getField(int? id) =>
+      (super.noSuchMethod(Invocation.method(
+        #getField,
+        [id],
+      )) as _i3.Future<_i4.FieldDTO>?);
 }

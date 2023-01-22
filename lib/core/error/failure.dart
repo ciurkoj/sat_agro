@@ -13,3 +13,6 @@ class ServerFailure extends Failure {
 
 class CacheFailure extends Failure {
 }
+
+class FieldFailure extends Failure {
+}
