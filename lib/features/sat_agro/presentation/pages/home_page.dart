@@ -67,30 +67,35 @@ class _HomePageState extends State<HomePage> {
                       title: const Text('Load test field'),
                       onTap: () {
                         context.read<SatAgroBloc>().add(LoadField());
+                        Navigator.pop(context);
                       },
                     ),
                     ListTile(
                       title: const Text('Terrain map'),
                       onTap: () {
                         context.read<SatAgroBloc>().add(ChangeMap(MapType.terrain));
+                        Navigator.pop(context);
                       },
                     ),
                     ListTile(
                       title: const Text('Satellite map'),
                       onTap: () {
                         context.read<SatAgroBloc>().add(ChangeMap(MapType.satellite));
+                        Navigator.pop(context);
                       },
                     ),
                     ListTile(
                       title: const Text('Hybrid map'),
                       onTap: () {
                         context.read<SatAgroBloc>().add(ChangeMap(MapType.hybrid));
+                        Navigator.pop(context);
                       },
                     ),
                     ListTile(
                       title: const Text('Emit error'),
                       onTap: () {
                         context.read<SatAgroBloc>().add(ErrorEvent());
+                        Navigator.pop(context);
                       },
                     ),
                   ],
