@@ -1,9 +1,11 @@
 import 'dart:collection';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:satagro/features/sat_agro/presentation/bloc/sat_agro_bloc.dart';
 import 'package:satagro/features/sat_agro/presentation/widgets/loading_widget.dart';
 import 'package:satagro/features/sat_agro/presentation/widgets/message_display.dart';
@@ -25,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   );
   MapType _mapType = MapType.hybrid;
   Set<Polygon> polygon = HashSet<Polygon>();
+  bool permissionsChecked = false;
 
   @override
   void initState() {
@@ -56,7 +59,8 @@ class _HomePageState extends State<HomePage> {
                       const Text("User Name", style: TextStyle(color: Colors.white, fontSize: 24)),
                   accountEmail:
                       const Text("User Email", style: TextStyle(color: Colors.white, fontSize: 24)),
-                  currentAccountPicture: const Center(child: FaIcon(FontAwesomeIcons.userLarge, size:60)),
+                  currentAccountPicture:
+                      const Center(child: FaIcon(FontAwesomeIcons.userLarge, size: 60)),
                 ),
               ),
               SliverFillRemaining(
@@ -130,25 +134,80 @@ class _HomePageState extends State<HomePage> {
           } else if (state is MapFoundationChanged) {
             _mapType = state.mapType;
             return googleMap();
-          } else if (state is Error){
+          } else if (state is Error) {
             return MessageDisplay(
               message: state.message,
             );
           }
           // initial state
-          return googleMap();
+          if (permissionsChecked == true) {
+            return googleMap();
+          }
+          checkLocationPermission();
+          return const MessageDisplay(
+            message: "No location permissions",
+          );
         }),
       ),
     );
   }
 
-  googleMap() => GoogleMap(
-        initialCameraPosition: cameraPosition,
-        mapType: _mapType,
-        myLocationEnabled: true,
-        polygons: polygon,
-        onMapCreated: (GoogleMapController controller) {
-          mapController = controller;
-        },
-      );
+  googleMap() => Stack(children: [
+        GoogleMap(
+          initialCameraPosition: cameraPosition,
+          mapType: _mapType,
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+          polygons: polygon,
+          onMapCreated: (GoogleMapController controller) {
+            mapController = controller;
+          },
+          padding: EdgeInsets.only(top: 40.0, right: 40),
+        ),
+      ]);
+
+  checkLocationPermission() {
+    Permission.location.status.then((PermissionStatus status) {
+      if (status == PermissionStatus.granted) {
+        setState(() {
+          permissionsChecked = true;
+        });
+      } else if (Platform.isAndroid || status == PermissionStatus.denied) {
+        Permission.locationWhenInUse.request().then((status) {
+          setState(() {
+            // if not granted, map will work the same but user location will not be shown
+            permissionsChecked = true;
+          });
+        });
+      } else {
+        // iOS permission previously denied
+        AlertDialog(
+          title: const Text("Open App Settings"),
+          content: const Text(
+              "You have previously disabled the camera permission. If you want to enable it again, you need to do so from the app's settings menu. Would you like to go there now?"),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  permissionsChecked = true;
+                });
+
+                openAppSettings();
+              },
+              child: const Text("Open", textAlign: TextAlign.center),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  // map will work the same but user location will not be shown
+                  permissionsChecked = true;
+                });
+              },
+              child: const Text("Cancel", textAlign: TextAlign.center),
+            )
+          ],
+        );
+      }
+    });
+  }
 }
